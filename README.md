@@ -10,7 +10,7 @@ Predictions were generated using the complete QAFI predictor family together wit
 
 QAFI external training datasets and intermediate data files are not included in this repository due to size constraints and are obtained from the original QAFI framework.
 
-The complete prediction resource is freely available on [Zenodo](DOI).
+The complete prediction resource is freely available on [Zenodo](https://doi.org/10.5281/zenodo.21132349).
 
 The QAFI methodology is described in the [QAFI publication](link).
 
@@ -119,7 +119,7 @@ If you use this resource, please cite:
 
 **Dataset**
 
-[Zenodo](DOI)
+[Zenodo](https://doi.org/10.5281/zenodo.21132349)
 
 **Method**
 
