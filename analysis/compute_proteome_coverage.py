@@ -1,11 +1,12 @@
 """
-Compute coverage statistics across the whole proteome.
-Reads the best available file (8preds > 7preds > 6preds) per protein.
+Compute coverage statistics across the final released proteome dataset.
 
 Usage:
-    python proteome_stats.py --proteins-dir ~/Desktop/human_proteome_2026/proteins
-    python proteome_stats.py --proteins-dir ~/Desktop/human_proteome_2026/proteins --out stats.csv
+    python compute_proteome_coverage.py \
+        --proteins-dir /path/to/human_proteome_2026_release \
+        --out stats_FINAL.csv
 """
+
 from __future__ import annotations
 
 import argparse
@@ -13,22 +14,36 @@ from pathlib import Path
 from collections import defaultdict
 
 import pandas as pd
-import numpy as np
 
 PREDICTOR_COLS = [
-    "am_pathogenicity", "popEVE", "EVE", "CPT1", "REVEL", "BayesDel",
-    "qafi1", "qafi2", "qafisplit1", "qafisplit1_median",
-    "qafisplit2", "QAFImt", "qafisplit2_residual", "qafisplit3",
-    "QAFIClass1", "QAFIClass2",
-    "QAFIMeta_v1", "QAFIMeta_v2", "QAFIMeta_v3", "QAFIMeta_v4",
+    "AM_pathogenicity",
+    "popEVE",
+    "EVE",
+    "CPT1",
+    "REVEL",
+    "BayesDel",
+    "qafi1",
+    "qafi2",
+    "QAFImt",
+    "qafisplit1",
+    "qafisplit2",
+    "qafisplit3",
+    "QAFIClass1",
+    "QAFIClass2",
+    "QAFIMeta_v1",
+    "QAFIMeta_v2",
+    "QAFIMeta_v3",
+    "QAFIMeta_v4",
 ]
 
-
 def best_file(protein_dir: Path) -> Path | None:
-    for suffix in ("*_8preds.tsv", "*_7preds.tsv", "*_6preds.tsv"):
-        found = sorted(protein_dir.glob(suffix))
-        if found:
-            return found[0]
+    """
+    Return the released per-protein variants table.
+    Each protein folder should contain exactly one *_variants.tsv file.
+    """
+    found = sorted(protein_dir.glob("*_variants.tsv"))
+    if found:
+        return found[0]
     return None
 
 

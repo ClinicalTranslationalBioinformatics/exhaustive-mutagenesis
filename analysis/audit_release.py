@@ -4,7 +4,7 @@ import os
 release = "/home/frog/Desktop/human_proteome_2026/human_proteome_2026_release"
 
 predictors = [
-    "am_pathogenicity",
+    "AM_pathogenicity",
     "popEVE",
     "EVE",
     "CPT1",
