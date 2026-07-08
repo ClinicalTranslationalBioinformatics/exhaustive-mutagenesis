@@ -4,7 +4,7 @@
 <p>
 This repository contains the computational pipeline used to generate a proteome-wide exhaustive missense variant effect prediction resource for the human reference proteome.
 
-The dataset covers all proteins in the UniProt human reference proteome (Proteome ID: **UP000005640**) and includes all 19 possible amino acid substitutions at every protein position, resulting in a total of **564,570,641** missense variants across **20,659** proteins.
+The dataset covers all proteins in the UniProt human reference proteome (Proteome ID: **UP000005640**) and includes all 19 possible amino acid substitutions at every protein position, resulting in a total of **564,287,628** missense variants across **20,521** proteins.
 
 Predictions were generated using the complete QAFI predictor family together with several widely used external variant effect predictors.
 
