@@ -16,11 +16,24 @@ import pandas as pd
 import numpy as np
 
 PREDICTOR_COLS = [
-    "am_pathogenicity", "popEVE", "EVE", "CPT1", "REVEL", "BayesDel",
-    "qafi1", "qafi2", "qafisplit1", "qafisplit1_median",
-    "qafisplit2", "QAFImt", "qafisplit2_residual", "qafisplit3",
-    "QAFIClass1", "QAFIClass2",
-    "QAFIMeta_v1", "QAFIMeta_v2", "QAFIMeta_v3", "QAFIMeta_v4",
+    "AM_pathogenicity",
+    "popEVE",
+    "EVE",
+    "CPT1",
+    "REVEL",
+    "BayesDel",
+    "qafi1",
+    "qafi2",
+    "QAFImt",
+    "qafisplit1",
+    "qafisplit2",
+    "qafisplit3",
+    "QAFIClass1",
+    "QAFIClass2",
+    "QAFIMeta_v1",
+    "QAFIMeta_v2",
+    "QAFIMeta_v3",
+    "QAFIMeta_v4",
 ]
 
 
