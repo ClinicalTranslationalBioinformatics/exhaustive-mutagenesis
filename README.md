@@ -140,7 +140,7 @@ If you use this resource, please cite:
 
 **Method**
 
-[QAFI publication](link) (pending)
+Ye, S.; Özkan, S.; Díaz-Vásquez, A.; Padilla, N.; de la Cruz, X. Toward Advanced Quantitative Prediction of Missense Variant Effects. Int. J. Mol. Sci. 2026, 27, 8777.
 
 ---
 
