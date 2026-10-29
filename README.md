@@ -12,7 +12,7 @@ QAFI external training datasets and intermediate data files are not included in 
 
 The complete prediction resource is freely available on [Zenodo](https://doi.org/10.5281/zenodo.21132349).
 
-The QAFI methodology is described in the [QAFI publication](link) (pending).
+The QAFI methodology is described in the [QAFI publication](https://www.mdpi.com/1422-0067/27/19/8777).
 
 ---
 
@@ -140,7 +140,7 @@ If you use this resource, please cite:
 
 **Method**
 
-Ye, S.; Özkan, S.; Díaz-Vásquez, A.; Padilla, N.; de la Cruz, X. Toward Advanced Quantitative Prediction of Missense Variant Effects. Int. J. Mol. Sci. 2026, 27, 8777.
+[Ye, S.; Özkan, S.; Díaz-Vásquez, A.; Padilla, N.; de la Cruz, X. Toward Advanced Quantitative Prediction of Missense Variant Effects. Int. J. Mol. Sci. 2026, 27, 8777.](https://www.mdpi.com/1422-0067/27/19/8777)
 
 ---
 
