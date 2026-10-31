@@ -29,11 +29,19 @@ from pathlib import Path
 import pandas as pd
 
 RENAME = {"qafisplit2_median": "QAFImt1.0", "QAFImt": "QAFImt1.0"}
+
+# v3: QAFImt 2.0 sustituye a QAFImt 1.0; qafisplit2/3 pasan a ser los calculados con QAFImt 2.0
+V3_DROP = ["QAFImt", "qafisplit2_median", "qafisplit2", "qafisplit3"]
+V3_RENAME = {"QAFImt2": "QAFImt2.0", "qafisplit2_mt2": "qafisplit2", "qafisplit3_mt2": "qafisplit3"}
+V3_ORDER = ["uniprot", "GeneName", "GeneID", "chr", "hg19_pos", "PositionAA", "RefAA", "AltAA", "VariantID",
+            "AM_pathogenicity", "AM_class", "popEVE", "EVE", "CPT1", "REVEL", "BayesDel",
+            "qafi1", "qafi2", "QAFImt2.0", "qafisplit1", "qafisplit2", "qafisplit3",
+            "QAFIClass1", "QAFIClass2", "QAFIMeta_v1", "QAFIMeta_v2", "QAFIMeta_v3", "QAFIMeta_v4"]
 ROUND_COLS = [
     "AM_pathogenicity", "am_pathogenicity", "popEVE", "EVE", "CPT1", "REVEL", "BayesDel",
     "qafi1", "qafi2", "QAFImt", "QAFImt1.0", "qafisplit1", "qafisplit1_median", "qafisplit2", "qafisplit2_residual",
     "qafisplit3", "QAFIClass1", "QAFIClass2", "QAFIMeta_v1", "QAFIMeta_v2", "QAFIMeta_v3", "QAFIMeta_v4",
-    "QAFImt2", "qafisplit2_mt2", "qafisplit3_mt2",
+    "QAFImt2", "qafisplit2_mt2", "qafisplit3_mt2", "QAFImt2.0",
 ]
 
 
@@ -43,7 +51,7 @@ def fmt3(s: pd.Series) -> pd.Series:
     return x.map(lambda v: "" if pd.isna(v) else repr(float(v))).where(x.notna() | (s == ""), s)
 
 
-def build(folder: Path, out_root: Path, overwrite: bool):
+def build(folder: Path, out_root: Path, overwrite: bool, version: str = "v2"):
     u = folder.name
     upd, var = folder / f"{u}_variants_updated.tsv", folder / f"{u}_variants.tsv"
     upd_ok = upd.exists() and sum(1 for _ in open(upd)) > 1     # un _updated vacío (solo cabecera) no vale
@@ -53,7 +61,14 @@ def build(folder: Path, out_root: Path, overwrite: bool):
     dst = out_root / "exhaustive_mutagenesis_data" / u / f"{u}_variants.tsv"
     if dst.exists() and not overwrite:
         return "already_done"
-    df = pd.read_csv(src, sep="\t", dtype=str, keep_default_na=False).rename(columns=RENAME)
+    df = pd.read_csv(src, sep="\t", dtype=str, keep_default_na=False)
+    if version == "v3":
+        has_mt2 = "QAFImt2" in df.columns and (df["QAFImt2"] != "").any()
+        df = df.drop(columns=[c for c in V3_DROP if c in df.columns]).rename(columns=V3_RENAME)
+        df = df.rename(columns={"UniProtID": "uniprot"})
+        df = df[[c for c in V3_ORDER if c in df.columns] + [c for c in df.columns if c not in V3_ORDER]]
+    else:
+        df = df.rename(columns=RENAME)
     n0 = len(df)
     df = df.drop_duplicates(["PositionAA", "RefAA", "AltAA"], keep="first")
     for c in ROUND_COLS:
@@ -63,7 +78,8 @@ def build(folder: Path, out_root: Path, overwrite: bool):
     tmp = dst.with_suffix(".tmp")
     df.to_csv(tmp, sep="\t", index=False)
     tmp.replace(dst)  # escritura atómica: un corte nunca deja un archivo a medias
-    return f"from_{kind}" + ("_dedup" if len(df) < n0 else "")
+    tag = f"from_{kind}" + ("_dedup" if len(df) < n0 else "")
+    return tag + ("_sin_qafimt2" if version == "v3" and not has_mt2 else "")
 
 
 def main():
@@ -73,6 +89,8 @@ def main():
     ap.add_argument("--uniprot", nargs="*")
     ap.add_argument("--uniprot-file", help="Archivo con un UniProt por línea (alternativa a --uniprot).")
     ap.add_argument("--overwrite", action="store_true", help="Rehacer proteínas ya construidas.")
+    ap.add_argument("--version", choices=["v2", "v3"], default="v2",
+                    help="v3: QAFImt2.0 en lugar de QAFImt1.0 y qafisplit2/3 calculados con QAFImt 2.0")
     a = ap.parse_args()
     rel, out = Path(a.release_dir).expanduser(), Path(a.out_dir).expanduser()
     ids = a.uniprot or ([l.strip() for l in open(Path(a.uniprot_file).expanduser()) if l.strip()] if a.uniprot_file else None)
@@ -81,7 +99,7 @@ def main():
     c, failed = Counter(), []
     for i, f in enumerate(folders, 1):
         try:
-            c[build(f, out, a.overwrite)] += 1
+            c[build(f, out, a.overwrite, a.version)] += 1
         except Exception as e:
             c["failed"] += 1
             failed.append(f"{f.name}: {e}")

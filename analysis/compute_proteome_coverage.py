@@ -24,7 +24,7 @@ PREDICTOR_COLS = [
     "BayesDel",
     "qafi1",
     "qafi2",
-    "QAFImt1.0",
+    "QAFImt2.0",
     "qafisplit1",
     "qafisplit2",
     "qafisplit3",
