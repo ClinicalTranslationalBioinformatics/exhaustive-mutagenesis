@@ -22,7 +22,7 @@ The QAFI methodology is described in the [QAFI publication](https://www.mdpi.com
 |---|---|---|---|---|
 | 1.0 / 1.1 | `v1.0.0` | 60 PSPs | QAFImt (linear regression) | One row per genomic variant (564,287,628 rows). 1.1 adds coverage statistics. Superseded. |
 | 2.0 | `v2.0.0` | 30 PSPs | QAFImt 1.0 (linear regression) | One row per amino-acid substitution. QAFImt-based predictors available for a subset of proteins. |
-| **3.0 (recommended)** | `v3.0.0` | 30 PSPs | **QAFImt 2.0 (XGBoost)** | QAFImt, QAFIsplit 2.0/3.0, QAFIClass and QAFIMeta extended to nearly the whole proteome. |
+| 3.0 (recommended)| `v3.0.0` | 30 PSPs | QAFImt 2.0 (XGBoost) | QAFImt, QAFIsplit 2.0/3.0, QAFIClass and QAFIMeta extended to nearly the whole proteome. |
 
 DOIs: v1.0 [10.5281/zenodo.21132349](https://doi.org/10.5281/zenodo.21132349) · v1.1 [10.5281/zenodo.23740768](https://doi.org/10.5281/zenodo.23740768) · v2.0 [10.5281/zenodo.23784508](https://doi.org/10.5281/zenodo.23784508) · v3.0 [10.5281/zenodo.23837889](https://doi.org/10.5281/zenodo.23837889)
 
@@ -36,8 +36,8 @@ See [CHANGELOG.md](CHANGELOG.md) for a detailed description of the changes betwe
 | CPT-1 | 89.5 | 90.5 |
 | popEVE / EVE / REVEL / BayesDel | 84–88 | 23–24 (single-nucleotide-accessible substitutions only) |
 | qafi2, QAFIClass1/2, QAFIMeta v1–v4 | 91.5 | 92.3 |
-| QAFImt 2.0, QAFIsplit 2.0, QAFIsplit 3.0 | 91.5 | 88.0 |
-| qafi1, QAFIsplit 1.0 | 74.5 | 58.4 |
+| QAFImt 2.0, QAFIsplit2, QAFIsplit3 | 91.5 | 88.0 |
+| qafi1, QAFIsplit1 | 74.5 | 58.4 |
 
 Coverage depends on the availability of AlphaFold structural models, multiple sequence alignments and other required input features. For long proteins, structure-based features (and therefore QAFI scores) may be available only for the modelled region. Per-protein coverage is distributed with each Zenodo version.
 
@@ -118,7 +118,7 @@ exhaustive-mutagenesis/
 1. Generate all possible missense variants for every protein in the human reference proteome (`pipeline/`).
 2. Integrate predictions from external variant effect predictors (`pipeline/`).
 3. Compute the QAFI family predictions (`qafi_pipeline/`).
-4. Compute QAFImt 2.0 and QAFIsplit 2.0/3.0 on it (`qafi_pipeline/qafimt2/`, `add_qafimt2.py`), recompute QAFIClass (`recalc_qafi_class.py`) and QAFIMeta (`recalc_qafi_meta.py`).
+4. Compute QAFImt 2.0 and QAFIsplit2/3 on it (`qafi_pipeline/qafimt2/`, `add_qafimt2.py`), recompute QAFIClass (`recalc_qafi_class.py`) and QAFIMeta (`recalc_qafi_meta.py`).
 5. Build the release: one row per substitution, harmonised columns, rounding (`analysis/build_zenodo_release.py`).
 6. Compute coverage statistics and run the validations (`analysis/`, `validation/`).
 
@@ -127,7 +127,7 @@ exhaustive-mutagenesis/
 Each Zenodo version (≥ 2.0) includes:
 
 - **ClinVar/Humsavar**: AUC-ROC per predictor. These labels were used to train QAFIClass; QAFIClass scores are leave-one-protein-out predictions.
-- **Beltran et al. DMS benchmark**: per-protein Pearson correlation between observed fitness and predicted QAFIsplit 3.0.
+- **Beltran et al. DMS benchmark**: per-protein Pearson correlation between observed fitness and predicted QAFIsplit3.
 - **CAGI7** (ARSA, ATP7B, LPL, TSC2): comparison of QAFIMeta with the predictions submitted to CAGI7.
 
 ---
@@ -173,13 +173,13 @@ Human Proteome Exhaustive Mutagenesis. Zenodo. https://doi.org/10.5281/zenodo.23
 
 **Method**
 
-Ye, S.; Özkan, S.; Díaz-Vásquez, A.; Padilla, N.; de la Cruz, X. Toward Advanced Quantitative Prediction of Missense Variant Effects. *Int. J. Mol. Sci.* **2026**, *27*, 8777. https://doi.org/10.3390/ijms27198777
+Ye, S.; Özkan, S.; Díaz-Vásquez, A.; Padilla, N.; de la Cruz, X. Toward Advanced Quantitative Prediction of Missense Variant Effects. *Int. J. Mol. Sci.* 2026, *27*, 8777. https://doi.org/10.3390/ijms27198777
 
 ---
 
 ## Funding
 
-The authors acknowledge support from the Ministerio de Ciencia, Innovación y Universidades de España through grant PID2022-142753OB-I00, co-funded by the European Regional Development Fund (FEDER).
+The authors acknowledge support from the Ministerio de Ciencia, Innovación y Universidades de España through grant PID2022-142753OB-I00, Ministerio de Ciencia, Innovación y Universidades de España, European Regional Development Fund (FEDER).
 
 ---
 
