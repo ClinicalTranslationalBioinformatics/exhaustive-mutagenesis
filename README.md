@@ -169,11 +169,11 @@ If you use this resource, please cite:
 
 **Dataset**
 
-Human Proteome Exhaustive Mutagenesis. Zenodo. https://doi.org/10.5281/zenodo.23837889 (please cite the specific version you used).
+Human Proteome Exhaustive Mutagenesis in [Zenodo](https://doi.org/10.5281/zenodo.23837889 ) (please cite the specific version you used).
 
 **Method**
 
-Ye, S.; Özkan, S.; Díaz-Vásquez, A.; Padilla, N.; de la Cruz, X. Toward Advanced Quantitative Prediction of Missense Variant Effects. *Int. J. Mol. Sci.* 2026, *27*, 8777. https://doi.org/10.3390/ijms27198777
+[Ye, S.; Özkan, S.; Díaz-Vásquez, A.; Padilla, N.; de la Cruz, X. Toward Advanced Quantitative Prediction of Missense Variant Effects. *Int. J. Mol. Sci.* 2026, *27*, 8777.](https://doi.org/10.3390/ijms27198777)
 
 ---
 
