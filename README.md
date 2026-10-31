@@ -127,7 +127,7 @@ exhaustive-mutagenesis/
 Each Zenodo version (≥ 2.0) includes:
 
 - **ClinVar/Humsavar**: AUC-ROC per predictor. These labels were used to train QAFIClass; QAFIClass scores are leave-one-protein-out predictions.
-- **Beltran et al. DMS benchmark**: per-protein Pearson correlation between observed fitness and predicted QAFIsplit3.
+- **[Beltran et al.](https://www.nature.com/articles/s41586-024-08370-4) DMS benchmark**: per-protein Pearson correlation between observed fitness and predicted QAFIsplit3.
 - **CAGI7** (ARSA, ATP7B, LPL, TSC2): comparison of QAFIMeta with the predictions submitted to CAGI7.
 
 ---
